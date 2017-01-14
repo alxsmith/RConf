@@ -1,0 +1,28 @@
+---
+title: "WHats new with Shiny"
+author: "Juan Carlos Villaseñor"
+date: "13 de enero de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Automated testing
+
+  - `devtools::install_github("rstudio/shinytest")` To install the package from the github repo
+
+  - `shinytest::recordTest()` To create a baseline
+
+  - `shinytest::testApp()` To test the app after some package versions have been updated
+  
+  - `shinytest::snapshotupdate()` To update the snapshot taken during the recordTest
+  
+
+# Web Apps vs. Web APIs
+
+  - Shiny does not work great for Web APIs
+  
+  - By using `session$api$data <- serveCSV(...)` with `/api/data`, you can access to data available through the API

@@ -1,0 +1,247 @@
+---
+title: "Functional Programming with Purrr"
+author: "Juan Carlos Villaseñor"
+date: "13 de enero de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+
+suppressPackageStartupMessages({
+  library(tidyverse)
+})
+
+
+```
+
+
+## Ex. 1
+
+```{r}
+
+load("data/swapi.rda")
+
+length(people)
+
+people[[1]]
+
+```
+
+
+## Mapping function
+
+`map(.x, .f)` = for each element in x, do f
+
+- Takes two arguments, x and f
+- x is a vector, list, or dataframe
+- f... a function?
+
+Strategy is often to find out what to do for one element. Here, count the number of starships for Luke.
+
+```{r}
+
+luke <- people[[1]]
+
+n.luke.starships <- length(luke$starships)
+
+```
+
+By doing `~length(.x$starships)` we can convert the above logic into a function.
+
+```{r}
+
+map(people, ~length(.x$starships))
+
+```
+
+
+### Task: Find the name of each character's homewoeld
+
+First do it for Luke
+
+```{r}
+
+load("data/planet_lookup.rda")
+
+luke.homeworld <- luke$homeworld
+
+planet_lookup[luke.homeworld]
+
+```
+
+We can simplify for Luke as
+
+```{r}
+luke.homeworld <- planet_lookup[luke$homeworld]
+```
+
+And we can generalize it using map
+
+```{r}
+map(people, ~planet_lookup[.x$homeworld])
+```
+
+## ROAD`map()`
+
+Additional functions include:
+
+  - `map_lgl()` will return a logical vector
+  
+  - `map_int()` will return an integer vector
+  
+  - `map_dbl()` will return a double
+  
+  - `map_chr()` will return a character
+  
+
+
+```{r}
+
+# We rename the lists
+people <- people %>% set_names(map_chr(people, "name"))
+
+# How many starships has each character been in?
+
+map_int(people, ~length(.x[["starships"]]))
+
+# What is the hair color of each character?
+
+map_chr(people, ~.x[["hair_color"]])
+
+# Which characters are males?
+
+map_lgl(people, ~.x[["gender"]] == "male")
+
+# How heavy people are?
+
+map_chr(people, ~.x[["mass"]]) #%>% #Some info is unknown, so we better stick to character
+  #readr::parse_number(na = "unknown")
+
+```
+
+  
+
+## Some side-notes on `map(.x, .f)`
+
+- `.f` can be a string or an integer
+
+- `map_chr(.x = people, .f = "mass")` would have also worked
+
+Along with the pipe operator, we can see how many starships every character has been in
+
+```{r}
+
+map(people, "starships") %>% map_int(length)
+
+```
+
+## Other tasks
+
+Which film as the most characters?
+
+```{r}
+
+map(people, "films") %>%
+  map_int(length) %>%
+  sort(decreasing = T)
+
+```
+
+
+Which film has more characters?
+
+```{r}
+
+map(films, "characters") %>% #Extract the characters in each fil
+  map_int(length) %>%        # Get the number of character in each film
+  set_names(map_chr(films, "title")) %>% #Rename the vectors using the tile of the movie
+  sort(decreasing = T)      # Order the results in a decreasing way
+
+```
+
+
+# `purrr` and list columns
+
+```{r}
+
+people_tbl <- tibble(
+  name = people %>% map_chr("name"),
+  
+  films = people %>% map("films"),
+  
+  height = people %>% map_chr("height") %>% 
+    readr::parse_number(na = "unknown"),
+  
+  species = people %>% map_chr("species", .null = NA_character_)
+)
+
+# The above is equivalent to the following:
+
+
+people_tbl2 <- tibble(
+  name = map_chr(people, "name"),
+  
+  films = map(people, "films"),
+  
+  height = map_chr(people, "height") %>% 
+    readr::parse_number(na = "unknown"),
+  
+  species = map_chr(people, "species", .null = NA_character_)
+)
+
+```
+
+
+### Task: Add a column with the number of movies
+
+```{r}
+
+## create some lookup tables
+
+film_lookup <- map_chr(films, "title") %>% set_names(map_chr(films, "url"))
+film_number_lookup <- stringr::str_split_fixed(names(film_lookup), "/", 7)[, 6]  %>%
+  as.numeric() %>%
+  set_names(map_chr(films, "url"))
+
+people_tbl <- people_tbl %>%
+  mutate(
+    n_films = map_int(films, length),
+    film_names = map(films, ~ film_lookup[.x]),
+    film_numbers = map(films, ~ film_number_lookup[.x])
+  )
+
+```
+
+
+### New column that collapses film numbers into a single string
+
+```{r}
+people_tbl <- people_tbl %>% 
+  mutate(
+    movies_squashed = map_chr(film_numbers, paste, collapse = ", ")
+  )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+---
+title: "Advanced Rmarkdown"
+author: "Juan Carlos Villaseñor"
+date: "13 de enero de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+##`rticles` package
+
+  - [GitHub Repository](https://www.github.com/rstudio/rticles)
+
+  - LaTeX templates for Pandoc
+  
+
+## `tufte` package
+
+  - tufte allows a main column for the body and a smaller side column for figs, sidenotes, or any other stuff
+  
+  - This package has the `full.width = TRUE` option in the code chunks
+  
+  - Package created in a responsive environment. Sidenotes become hidden in smaller screens, and can be accessed by clicking on body text that references them.
+  
+  
