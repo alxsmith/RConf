@@ -1,5 +1,5 @@
 ---
-title: "WHats new with Shiny"
+title: "Whats new with Shiny"
 author: "Juan Carlos Villaseñor"
 date: "13 de enero de 2017"
 output: html_document
