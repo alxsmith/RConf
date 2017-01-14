@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Talk 1
 
 ##`rticles` package
 
@@ -25,6 +26,33 @@ knitr::opts_chunk$set(echo = TRUE)
   
   - Package created in a responsive environment. Sidenotes become hidden in smaller screens, and can be accessed by clicking on body text that references them.
   
+## `xaringan` package
+  
+  - Allows a more friendly interface for html output and presentation
+  
+  - slides in presentation mode
+  
+  - blackout screen, flip screen
+  
+## `bookdown` package
 
+  - Multiple Rmarkdown documents, and allows you to produce a book
+  
+  - Output formats for \*.pdf, \*.html, and e-books
+  
+  - https://bookdown.org/yihui/bookdown/
+  
+  - Cross-referenced figures supported
+  
+  
+# Talk 2
+
+## Customize Rmd
+
+  - First, check existing options in the Rmd page
+  
+  - Rmarkdown calls Knitr, which translates everything into Markdown, and then calls pandoc, which translates everything into the desired output
+  
+  
   
   

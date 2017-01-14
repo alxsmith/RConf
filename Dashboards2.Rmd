@@ -1,0 +1,45 @@
+---
+title: "Dashboards with Rmd"
+author: "Juan Carlos Villaseñor"
+date: "14 de enero de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+### `flexdashboard` package
+
+  - `valueBox()` Function to create value boxes
+  
+  - `gauge()` Function to create gauges
+  
+  - 
+  
+### Dashboards + Shiny!
+
+  - Can include shiny commands and functions, without having a ui - server logic
+  
+  - can generate the rmd with a uiOutput
+  
+  - `runtime: shiny_prerendered`
+  
+  
+```{r, eval = F}
+
+ui <- uiOutput("contents")
+
+server <- 
+  ...{
+    output$contents <- renderUI({
+      rmarkdown::render("source.Rmd")
+    })
+  }
+  
+
+```
+
+

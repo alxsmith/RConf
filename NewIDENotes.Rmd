@@ -1,0 +1,32 @@
+---
+title: "NewIDENotes"
+author: "Juan Carlos Villaseñor"
+date: "14 de enero de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Nice things
+
+  - Ctrl + shift + up to increase size of selection
+
+  - Ctrl + shift + down to reduce size of selection
+  
+  - Rename variable in scope
+
+  - Automatic insertion of Roxygnen skeleton
+  
+  - Ctrl + shift + a to re/format code
+  
+  - Ctrl + Alt + click to get a larger cursor
+  
+  - Alt + click to draw a cursor
+  
+  - Ctrl + dot "." to find an object within the project
+  
+  - Alt + shift + K to all shortcuts
+  

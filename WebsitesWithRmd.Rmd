@@ -1,0 +1,28 @@
+---
+title: "MakingWebsitesRmd"
+author: "Juan Carlos Villaseñor"
+date: "14 de enero de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## `blogdown` package
+
+  - `devtools::install_github("rstudio/blogdown")` To install the package from github
+  
+  - `blogdown::new_site()` To install `Hugo`, and creat a preview of a website
+  
+  - Embeded code, text ouptut, graphics output supported, just like normal Rmd
+  
+  - The viewer listens to the document, no need to re-render the documents
+  
+  - Themes from Hugo can be used
+  
+  - `blogdown::new_post()` Creates teh YAML metadata needed, and builds a new post under a new directory
+  
+  - From a normal Rmarkdown, one can use `output format: blogdown::html_page` to produce blogdowns
+  
+  
