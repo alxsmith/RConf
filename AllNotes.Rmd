@@ -1,0 +1,159 @@
+---
+title: "Most of them together"
+author: "Juan Carlos Villaseñor"
+date: "14 de enero de 2017"
+output: 
+  html_document: 
+    toc: yes
+    toc_float:
+            collapsed: no
+            smooth_scroll: no
+---
+
+# New with shiny!
+
+## Automated testing
+
+  - `devtools::install_github("rstudio/shinytest")` To install the package from the github repo
+
+  - `shinytest::recordTest()` To create a baseline
+
+  - `shinytest::testApp()` To test the app after some package versions have been updated
+  
+  - `shinytest::snapshotupdate()` To update the snapshot taken during the recordTest
+  
+
+## Web Apps vs. Web APIs
+
+  - Shiny does not work great for Web APIs
+  
+  - By using `session$api$data <- serveCSV(...)` with `/api/data`, you can access to data available through the API
+
+
+# Whats new with the IDE?
+
+## Some shortcuts
+
+  - `Ctrl` + `Shift` + up to increase size of selection
+
+  - `Ctrl` + `Shift` + down to reduce size of selection
+  
+  - Rename variable in scope
+
+  - Automatic insertion of Roxygnen skeleton
+  
+  - `Ctrl` + `Shift` + a to re/format code
+  
+  - `Ctrl` + `Alt` + click to get a larger cursor
+  
+  - `Alt` + click to draw a cursor
+  
+  - `Ctrl` + dot "." to find an object within the project
+  
+  - `Alt` + `Shift` + K to all shortcuts
+  
+# Shiny dashboards
+
+## `shinydhasboards` package, more of this in the dashboards directory with live code examples
+
+## `flexdashboard` package
+
+  - `valueBox()` Function to create value boxes
+  
+  - `gauge()` Function to create gauges
+  
+  - 
+  
+## Dashboards + Shiny!
+
+  - Can include shiny commands and functions, without having a ui - server logic
+  
+  - can generate the rmd with a uiOutput
+  
+  - `runtime: shiny_prerendered`
+  
+  
+```{r, eval = F}
+
+ui <- uiOutput("contents")
+
+server <- 
+  ...{
+    output$contents <- renderUI({
+      rmarkdown::render("source.Rmd")
+    })
+  }
+  
+
+```
+
+# Websites with Rmd
+
+## `blogdown` package
+
+  - `devtools::install_github("rstudio/blogdown")` To install the package from github
+  
+  - `blogdown::new_site()` To install `Hugo`, and create a preview of a website
+  
+  - Embedded code, text output, graphics output supported, just like normal Rmd
+  
+  - The viewer listens to the document, no need to re-render the documents
+  
+  - Themes from Hugo can be used
+  
+  - `blogdown::new_post()` Creates the YAML metadata needed, and builds a new post under a new directory
+  
+  - From a normal Rmarkdown, one can use `output format: blogdown::html_page` to produce blogdowns
+  
+
+# Other Rmd talks
+
+## Talk 1
+
+###`rticles` package
+
+  - [GitHub Repository](https://www.github.com/rstudio/rticles)
+
+  - LaTeX templates for Pandoc
+  
+
+### `tufte` package
+
+  - tufte allows a main column for the body and a smaller side column for figs, side notes, or any other stuff
+  
+  - This package has the `full.width = TRUE` option in the code chunks
+  
+  - Package created in a responsive environment. Si denotes become hidden in smaller screens, and can be accessed by clicking on body text that references them.
+  
+### `xaringan` package
+  
+  - Allows a more friendly interface for html output and presentation
+  
+  - slides in presentation mode
+  
+  - blackout screen, flip screen
+  
+### `bookdown` package
+
+  - Multiple Rmarkdown documents, and allows you to produce a book
+  
+  - Output formats for \*.pdf, \*.html, and e-books
+  
+  - https://bookdown.org/yihui/bookdown/
+  
+  - Cross-referenced figures supported
+  
+  
+## Talk 2
+
+### Customize Rmd
+
+  - First, check existing options in the Rmd page
+  
+  - Rmarkdown calls Knitr, which translates everything into Markdown, and then calls pandoc, which translates everything into the desired output
+  
+  
+  
+  
+  
+  
